@@ -1,0 +1,273 @@
+<?xml version="1.0" ?>
+
+<robot name="m2wr" xmlns:xacro="https://www.ros.org/wiki/xacro" >
+    
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.203125 0.23828125 0.28515625 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.80078125 0.12890625 0.1328125 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>  
+  
+  <gazebo reference="link_chassis">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="link_left_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="link_right_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+    
+  <!--Main body-->
+  <link name="link_chassis">
+    <!-- pose and inertial -->
+    <pose>0 0 0.1 0 0 0</pose>
+    
+    <inertial>
+      <mass value="10"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.075" ixy="0" ixz="0" iyy="0.075" iyz="0" izz="0.15"/>
+    </inertial>
+    
+    <collision name="collision_chassis">
+      <geometry>
+        <box size="0.25 0.35 0.08"/>
+      </geometry>
+    </collision>
+    
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.25 0.35 0.08"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>  
+  
+
+
+  <!-- Create wheel right front-->  
+    
+  <link name="link_right_front_wheel">    
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0.135 0.14 -0.03"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+    
+    <collision name="link_right_front_wheel_collision">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>
+    </collision>
+    
+    <visual name="link_right_front_wheel_visual">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>      
+    </visual>
+    
+  </link>
+    
+  <!--   Joint for right front wheel  -->
+  <joint name="joint_right_front_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0.135 0.14 -0.03"/>
+    <child link="link_right_front_wheel" />
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="1 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint>  
+    
+  <!-- Left front Wheel link -->
+    
+  <link name="link_left_front_wheel">    
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="1.5707 1.5707 1.5707" xyz="-0.135 0.14 -0.03"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+    
+    <collision name="link_left_front_wheel_collision">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>
+    </collision>
+    
+    <visual name="link_left_front_wheel_visual">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>      
+    </visual>
+    
+  </link>
+    
+  <!--   Joint for left front wheel  -->
+  <joint name="joint_left_front_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.135 0.14 -0.03"/>
+    <child link="link_left_front_wheel" />
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="1 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint>    
+  
+                    <!--BACK PORTION-->
+  <!-- Create wheel right back-->
+  <link name="link_right_back_wheel">    
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0.135 -0.14 -0.03"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+    
+    <collision name="link_right_back_wheel_collision">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>
+    </collision>
+    
+    <visual name="link_right_back_wheel_visual">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>      
+    </visual>
+    
+  </link>
+
+   <!--JOint for right back-->
+  <joint name="joint_right_back_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0.135 -0.14 -0.03"/>
+    <child link="link_right_back_wheel" />
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="1 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint> 
+
+  <!--Left back wheel link-->
+  <link name="link_left_back_wheel">    
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="1.5707 1.5707 1.5707" xyz="-0.135 -0.14 -0.03"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+    
+    <collision name="link_left_back_wheel_collision">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>
+    </collision>
+    
+    <visual name="link_left_back_wheel_visual">
+      <origin rpy="1.5707 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>      
+    </visual>
+    
+  </link>
+    
+  <!--   Joint for left back wheel  -->
+  <joint name="joint_left_back_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.135 -0.14 -0.03"/>
+    <child link="link_left_back_wheel" />
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="1 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint> 
+
+  <!-- Sensor rod-->
+  <link name="link_sensor_rod">
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0.075 0.12"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+
+    <collision name="link_sensor_rod_collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.2" radius="0.005"/>
+      </geometry>
+    </collision>
+
+    <visual name="link_sensor_rod_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.2" radius="0.005"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!--Joint for sensor rod-->
+  <joint name="joint_sensor_rod" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.075 0.12" />
+    <child link="link_sensor_rod" />
+    <parent link="link_chassis" />
+    <axis rpy="0 0 0" xyz="1 0 0" />
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint>  
+  
+  <!-- Sensor -->
+  <link name="link_sensor">
+    <inertial>
+      <mass value="0.05"/>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0.1"/>
+      <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+    </inertial>
+
+    <collision name="link_sensor_collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.015 0.03"/>
+      </geometry>
+    </collision>
+
+    <visual name="link_sensor_visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.015 0.03"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Joint for sensor-->
+  <joint name="joint_sensor" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.1" />
+    <child link="link_sensor" />
+    <parent link="link_sensor_rod" />
+    <axis rpy="0 0 0" xyz="1 0 0" />
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0" />
+  </joint>
+
+</robot>
